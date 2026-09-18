@@ -1,0 +1,54 @@
+{{define "clientes_list.html"}}
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Clientes</title>
+	<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+	<header>
+		<h1>Clientes</h1>
+		<a class="btn" href="/clientes/nuevo">+ Nuevo cliente</a>
+	</header>
+	<main>
+		{{if .}}
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>Email</th>
+					<th>Teléfono</th>
+					<th>Dirección</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{range .}}
+				<tr>
+					<td>{{.ID}}</td>
+					<td>{{.Nombre}}</td>
+					<td>{{.Apellido}}</td>
+					<td>{{.Email}}</td>
+					<td>{{.Telefono}}</td>
+					<td>{{.Direccion}}</td>
+					<td class="acciones">
+						<a href="/clientes/{{.ID}}/editar">Editar</a>
+						<form action="/clientes/{{.ID}}/eliminar" method="POST" onsubmit="return confirm('¿Eliminar este cliente?');">
+							<button type="submit">Eliminar</button>
+						</form>
+					</td>
+				</tr>
+				{{end}}
+			</tbody>
+		</table>
+		{{else}}
+		<p>No hay clientes registrados todavía.</p>
+		{{end}}
+	</main>
+</body>
+</html>
+{{end}}
